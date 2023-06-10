@@ -2,6 +2,9 @@ name: Scala Test
 
 on:
   workflow_call:
+    secrets:
+      GH_TOKEN_READ_PACKAGES:
+        required: true
 
 jobs:
   scala-test:
@@ -22,9 +25,9 @@ jobs:
       - name: Test
         run: sbt -v +test
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READ_PACKAGES }}
 
       - name: Format
         run: sbt -v scalafmtCheckAll scalafmtSbtCheck
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READ_PACKAGES }}
