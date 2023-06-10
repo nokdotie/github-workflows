@@ -43,6 +43,8 @@ jobs:
         run: |
           sbt -v ${{ inputs.SBT_PROJECT_ID }}/docker:publish
           echo "IMAGE=$(sbt -batch -error 'print ${{ inputs.SBT_PROJECT_ID }}/dockerAlias' | head -c -4)" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy docker image
         run: gcloud run deploy ${{ inputs.GCP_CLOUD_RUN_SERVICE }} --image "${{ env.IMAGE }}" --region europe-west1

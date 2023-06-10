@@ -21,6 +21,10 @@ jobs:
 
       - name: Test
         run: sbt -v +test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Format
         run: sbt -v scalafmtCheckAll scalafmtSbtCheck
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
