@@ -3,6 +3,8 @@ name: Scala Test
 on:
   workflow_call:
     secrets:
+      GCP_CREDENTIALS:
+        required: false
       GH_TOKEN_READ_PACKAGES:
         required: true
 
@@ -25,6 +27,7 @@ jobs:
       - name: Test
         run: sbt -v +test
         env:
+          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READ_PACKAGES }}
 
       - name: Format
